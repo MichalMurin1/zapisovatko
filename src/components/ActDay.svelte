@@ -1,5 +1,7 @@
-<script>
+<script lang="ts">
     export const date = new Date();
+	/*export let taskCount: Number;
+	export let completedCount: Number;*/
     
     const weekday = new Array(7);
 	weekday[0] = "Sunday";
@@ -34,7 +36,7 @@
     <div class="text-center px-4">
         <p class="text-5xl mb-3">{day}</p>
         <p class="text-xl">{months[date.getMonth()]+' '+ date.getDate()}, {date.getFullYear()}</p>
-        <p class="text-xl">Score: 0/7</p>
+        <p class="text-xl">Score: 0/0</p>
     </div>
     <div>-></div>
 </div>
