@@ -16,7 +16,8 @@
 	let taskCount = tasks? tasks.length : 0;
 	let completedItems: number;
 
-	/*function countCompletedItems() {
+	function countCompletedItems() {
+		let completedItems = 0;
 		if(!tasks || tasks.length === 0){
 			completedItems = 0;
 			return;
@@ -27,8 +28,10 @@
 				completedItems += 1;
 			}
 		});
-	}*/
-	//countCompletedItems();
+
+		return completedItems;
+	}
+
 	/*export let tasks = [
 		{
 			complete: false,
@@ -62,6 +65,9 @@
 	$: {
 		tasks = tasks;
 		localStorage.setStuff('items', tasks);
+		completedItems = countCompletedItems();
+		taskCount = tasks.length;
+		console.log(completedItems);
 	}
 	
 </script>
@@ -72,7 +78,7 @@
 			<h1 class="text-center text-3xl font-bold">Zapisovatko</h1>
 		</div>
 		<div class="w-3/4 pt-16">
-			<ActDay></ActDay>
+			<ActDay taskCount={taskCount} completedCount={completedItems}></ActDay>
 
 			<div class="pb-4 border-b border-gray-900 flex">
 				<input type="text" class="p-3 w-full bg-gray-900 placeholder-gray-600" placeholder="Add a task..." bind:value="{newTask}">
