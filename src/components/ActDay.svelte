@@ -1,6 +1,9 @@
 <script lang="ts">
-    export const date = new Date();
-	export let taskCount: Number;
+	import TiArrowLeftThick from 'svelte-icons/ti/TiArrowLeftThick.svelte';
+	import TiArrowRightThick from 'svelte-icons/ti/TiArrowRightThick.svelte';
+
+    export let activeDate = new Date();
+	export let taskCount = 0;
 	export let completedCount = 0;
     
     const weekday = new Array(7);
@@ -27,16 +30,29 @@
 	months[11] = "Dec";
 
 	let day;
-	day = weekday[date.getDay()];
+	day = weekday[activeDate.getDay()];
 
+	function handleBackClick() {
+		activeDate.setDate(activeDate.getDate() - 1);
+		activeDate = activeDate;
+	}
+
+	function handleForwardClick() {
+		activeDate.setDate(activeDate.getDate() + 1);
+		activeDate = activeDate;
+	}
 </script>
 
 <div class="mx-auto max-w-xs flex mb-10 items-center">
-    <div>-></div>
+    <div class="w-8 fill-white cursor-pointer" on:click="{handleBackClick}">
+		<TiArrowLeftThick/>
+	</div>
     <div class="text-center px-4">
         <p class="text-5xl mb-3">{day}</p>
-        <p class="text-xl">{months[date.getMonth()]+' '+ date.getDate()}, {date.getFullYear()}</p>
+        <p class="text-xl">{activeDate.getDate()}. {months[activeDate.getMonth()]}, {activeDate.getFullYear()}</p>
         <p class="text-xl">Score: {completedCount}/{taskCount} | Points: {completedCount - (taskCount - completedCount)}</p> 
     </div>
-    <div>-></div>
+    <div class="w-8 fill-white cursor-pointer" on:click="{handleForwardClick}">
+		<TiArrowRightThick/>
+	</div> 
 </div>
