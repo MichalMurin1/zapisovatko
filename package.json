@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "watch:tailwind": "npx tailwindcss -i ./public/tailwind.css -o ./public/build/bundle.css --watch",
+    "watch:tailwind": "npx tailwindcss -i ./public/tailwind.css -o ./public/index.css --watch",
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",

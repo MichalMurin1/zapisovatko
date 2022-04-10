@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ActDay from './components/actDay.svelte';
-	import Task from './components/task.svelte';
+	import TaskList from './components/TaskList.svelte';
+	import AddTaskForm from './components/AddTaskForm.svelte';
 
 	/*let tasks = [
 		{
@@ -67,22 +68,6 @@
 		
 		return completedItems;
 	};
-
-	function removeFromList(index) {
-		tasks.splice(index, 1)
-		tasks = tasks;
-		localStorage.setStuff(activeDateString, tasks);
-    };
-
-	function addItem () {
-		if (newTask === '' || newTask === undefined) {
-			return;
-		}
-		tasks = [...tasks, {text: newTask, complete: false}];
-
-		newTask = '';
-		localStorage.setStuff(activeDateString, tasks);
-	};
 	
 	$: {
 		activeDateString = makeStringOfDay(activeDate);
@@ -101,6 +86,20 @@
 		localStorage.setStuff(activeDateString, tasks);
 		tasks = tasks;
 	}
+
+	const handleAdd = (e) => {
+		const task = e.detail;
+		tasks = [...tasks, task];
+		localStorage.setStuff(activeDateString, tasks);
+	}
+
+	const handleRemoveTask = (e) => {
+		const index = e.detail;
+		tasks.splice(index, 1)
+		tasks = tasks;
+		localStorage.setStuff(activeDateString, tasks);
+	}
+
 </script>
 
 <main class="bg-gray-800 w-screen h-screen flex text-gray-300 ">
@@ -110,28 +109,11 @@
 		</div>
 		<div class="w-3/4 pt-16">
 			<ActDay taskCount={taskCount} completedCount={completedItems} bind:activeDate={activeDate}></ActDay>
+			
+			<AddTaskForm on:add={handleAdd} />
 
-			<div class="pb-4 border-b border-gray-900 flex">
-				<input type="text" class="p-3 w-full bg-gray-900 placeholder-gray-600" placeholder="Add a task..." bind:value="{newTask}">
-				<button class="px-6 py-2 bg-gray-500" on:click="{addItem}">Save</button>
-			</div>
 			<div class="p-4 w-full">
-				<h3 class="text-xl text-bold mb-2">Your todays tasks: </h3>
-				<ul id="js-items" class="js-items">
-					{#if tasks && tasks.length > 0}
-						{#each tasks as task, index}
-						<li class="p-3 border-b border-gray-700">
-							<label class="cursor-pointer {task.complete ? 'line-through opacity-50': ''}">
-								<input type="checkbox" class="mr-2" name="{index.toString()}" on:click="{changeTaskStatus}" value="true">
-								<span>{task.text}</span>
-							</label>
-							<span on:click={() => removeFromList(index)}>❌</span>
-						</li>
-						{/each}
-					{:else}
-						<li class="p-3 text-lg text-gray-400">There is nothing to doo bro chill or better write down some tasks :D </li>
-					{/if}
-				</ul>
+				<TaskList {tasks} on:remove={handleRemoveTask}/>
 			</div>
 		</div>
 	</section>
