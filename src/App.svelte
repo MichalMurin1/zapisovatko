@@ -50,41 +50,17 @@
 
 	tasks = tasksForDay(activeDateString);
 	let taskCount = tasks? tasks.length : 0;
-	console.log(activeDateString, tasks);
 
-	function countCompletedItems() {
-		let completedItems = 0;
-		console.log(tasks);
-		if(tasks || tasks.length === 0){
-			completedItems = 0;
-			return;
-		}
-
-		tasks.forEach(item => {
-			if (item.complete) {
-				completedItems += 1;
-			}
-		});
-		
-		return completedItems;
-	};
+	const countCompleted = () => {
+		let completed = tasks.filter(task => task.complete);
+		completedItems = completed.length;
+	}
+	countCompleted();
 	
 	$: {
 		activeDateString = makeStringOfDay(activeDate);
 		tasks = tasksForDay(activeDateString);
 		taskCount = tasks.length;
-	}
-
-	function changeTaskStatus () {
-		console.log(tasks[parseInt(this.name)]);
-		if(this.checked) {
-			tasks[parseInt(this.name)].complete = true;
-		} else {
-			tasks[parseInt(this.name)].complete = false;
-		}
-		completedItems = countCompletedItems();
-		localStorage.setStuff(activeDateString, tasks);
-		tasks = tasks;
 	}
 
 	const handleAdd = (e) => {
@@ -100,6 +76,13 @@
 		localStorage.setStuff(activeDateString, tasks);
 	}
 
+	const handleStatus = (e) => {
+		tasks = e.detail;
+	
+		localStorage.setStuff(activeDateString, tasks);
+		countCompleted();
+	}
+
 </script>
 
 <main class="bg-gray-800 w-screen h-screen flex text-gray-300 ">
@@ -113,7 +96,7 @@
 			<AddTaskForm on:add={handleAdd} />
 
 			<div class="p-4 w-full">
-				<TaskList {tasks} on:remove={handleRemoveTask}/>
+				<TaskList {tasks} on:remove={handleRemoveTask} on:statusChange={handleStatus} />
 			</div>
 		</div>
 	</section>
