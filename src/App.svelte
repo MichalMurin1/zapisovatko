@@ -55,12 +55,12 @@
 		let completed = tasks.filter(task => task.complete);
 		completedItems = completed.length;
 	}
-	countCompleted();
 	
 	$: {
 		activeDateString = makeStringOfDay(activeDate);
 		tasks = tasksForDay(activeDateString);
 		taskCount = tasks.length;
+		countCompleted();
 	}
 
 	const handleAdd = (e) => {
