@@ -20,10 +20,12 @@ dateStore.subscribe(value => {
 let storedItems = localStorage.getStuff(dateFromStore) ?? [];
 console.log(storedItems);
 export let itemsStore = writable([{
+        id: 1,
         complete: false,
         text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
     },
     {
+        id: 2,
         complete: false,
         text: 'Lorem ipsum dolor sit amet consectetur.'
     }

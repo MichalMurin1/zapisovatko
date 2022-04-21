@@ -2,7 +2,8 @@
 	import TiArrowLeftThick from 'svelte-icons/ti/TiArrowLeftThick.svelte';
 	import TiArrowRightThick from 'svelte-icons/ti/TiArrowRightThick.svelte';
 
-	import {dateStore} from './../stores/ItemStore.js';
+	import {dateStore, itemsStore} from './../stores/ItemStore.js';
+	
 
 	const formatter = new Intl.DateTimeFormat('en',{
 		day: 'numeric',
@@ -16,6 +17,14 @@
 
 	export let taskCount = 0;
 	export let completedCount = 0;
+
+	itemsStore.subscribe(items => {
+		taskCount = items.length;
+
+		let completed = items.filter(item => item.complete);
+		completedCount = completed.length;
+		console.log(items);
+	});
     
 	function handleBackClick() {
 		let date = new Date($dateStore);

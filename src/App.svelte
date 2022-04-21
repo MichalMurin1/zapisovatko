@@ -2,8 +2,6 @@
 	import ActDay from './components/ActDay.svelte';
 	import TaskList from './components/TaskList.svelte';
 	import AddTaskForm from './components/AddTaskForm.svelte';
-	import {dateStore, itemsStore} from './stores/ItemStore.js';
-
 
 	/*let tasks = [
 		{
@@ -19,71 +17,6 @@
 			text: 'Lorem ipsum dolor sit amet consectetur. r sit amet consecteturr sit amet consectetur'
 		}
 	];*/
-	
-	Storage.prototype.setStuff = function (key, value) {
-		this.setItem(key, JSON.stringify(value));
-	}
-
-	Storage.prototype.getStuff = function (key) {
-		var value = this.getItem(key);
-		return value && JSON.parse(value);
-	}
-	//tasks = localStorage.setStuff('items', tasks);
-	let newTask: string;
-	let completedItems: number;
-	let activeDate = new Date();
-	let tasks = [];
-	let activeDayString: string;
-
-	function makeStringOfDay(activeDate) {
-		return  `${activeDate.getDate()}.${activeDate.getMonth()}.${activeDate.getFullYear()}`;
-	}
-	let activeDateString = makeStringOfDay(activeDate);
-
-	function tasksForDay(dayString) {
-		let tasks = localStorage.getStuff(dayString) ?? [];
-		if (tasks.length < 1) {
-			localStorage.setStuff(dayString,[]);
-			return [];
-		} else {
-			return tasks;	
-		}
-	}
-
-	tasks = tasksForDay(activeDateString);
-	let taskCount = tasks? tasks.length : 0;
-
-	const countCompleted = () => {
-		let completed = tasks.filter(task => task.complete);
-		completedItems = completed.length;
-	}
-	
-	$: {
-		activeDateString = makeStringOfDay(activeDate);
-		tasks = tasksForDay(activeDateString);
-		taskCount = tasks.length;
-		countCompleted();
-	}
-
-	const handleAdd = (e) => {
-		const task = e.detail;
-		tasks = [...tasks, task];
-		localStorage.setStuff(activeDateString, tasks);
-	}
-
-	const handleRemoveTask = (e) => {
-		const index = e.detail;
-		tasks.splice(index, 1)
-		tasks = tasks;
-		localStorage.setStuff(activeDateString, tasks);
-	}
-
-	const handleStatus = (e) => {
-		tasks = e.detail;
-	
-		localStorage.setStuff(activeDateString, tasks);
-		countCompleted();
-	}
 
 </script>
 
@@ -92,12 +25,12 @@
 	<section class="px-8 w-full">
 		<div class="max-w-4xl pt-16 mx-auto">
 			<h1 class="text-center text-3xl w-full font-bold mb-20">Zapisovátor-bodovátor</h1>
-			<ActDay taskCount={taskCount} completedCount={completedItems} bind:activeDate={activeDate}></ActDay>
+			<ActDay></ActDay>
 			
-			<AddTaskForm on:add={handleAdd} />
+			<AddTaskForm />
 
 			<div class="p-4 w-full">
-				<TaskList {tasks} on:remove={handleRemoveTask} on:statusChange={handleStatus} />
+				<TaskList />
 			</div>
 		</div>
 	</section>
