@@ -1,7 +1,9 @@
 <script lang="ts">
-	import ActDay from './components/actDay.svelte';
+	import ActDay from './components/ActDay.svelte';
 	import TaskList from './components/TaskList.svelte';
 	import AddTaskForm from './components/AddTaskForm.svelte';
+	import {dateStore, itemsStore} from './stores/ItemStore.js';
+
 
 	/*let tasks = [
 		{
@@ -85,12 +87,11 @@
 
 </script>
 
-<main class="bg-gray-800 w-screen h-screen flex text-gray-300 ">
-	<section class="flex mt-6 max-w-screen-xl px-8 w-full">
-		<div class="w-1/4">
-			<h1 class="text-center text-3xl font-bold">Zapisovatko</h1>
-		</div>
-		<div class="w-3/4 pt-16">
+<main class="bg-gray-800 w-screen h-screen text-gray-300 ">
+	
+	<section class="px-8 w-full">
+		<div class="max-w-4xl pt-16 mx-auto">
+			<h1 class="text-center text-3xl w-full font-bold mb-20">Zapisovátor-bodovátor</h1>
 			<ActDay taskCount={taskCount} completedCount={completedItems} bind:activeDate={activeDate}></ActDay>
 			
 			<AddTaskForm on:add={handleAdd} />

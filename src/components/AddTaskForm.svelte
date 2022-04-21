@@ -1,5 +1,7 @@
 <script lang="ts">
 import { createEventDispatcher } from "svelte";
+import {itemsStore} from './../stores/ItemStore.js';
+
 let dispatch = createEventDispatcher();
 
 let text = '';
@@ -13,7 +15,10 @@ const submitHandler = () => {
     error = '';
 
     let task = {text: text, complete: false};
-    dispatch("add", task);
+    itemsStore.update(currentItems => {
+        return [task, ...currentItems];
+    });
+    //dispatch("add", task);
     text = '';
 }
 
