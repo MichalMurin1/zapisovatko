@@ -5,7 +5,7 @@ Storage.prototype.setStuff = function (key, value) {
 }
 
 Storage.prototype.getStuff = function (key) {
-    var value = this.getItem(key);
+    let value = this.getItem(key);
     return value && JSON.parse(value);
 }
 
@@ -17,20 +17,20 @@ dateStore.subscribe(value => {
     dateFromStore = value;
 });
 
-let storedItems = localStorage.getStuff(dateFromStore) ?? [];
-console.log(storedItems);
-export let itemsStore = writable([{
-        id: 1,
-        complete: false,
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-    },
-    {
-        id: 2,
-        complete: false,
-        text: 'Lorem ipsum dolor sit amet consectetur.'
-    }
-]);
+const formatter = new Intl.DateTimeFormat('en',{
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric'
+});
 
-/*dateStore.subscribe(value => {
-    itemsStore = localStorage.getStuff(value) ?? [];
-});*/
+
+let storedItems = localStorage.getStuff(formatter.format(dateFromStore)) ?? [];
+
+export let itemsStore = writable(storedItems);
+
+dateStore.subscribe(val => {
+    storedItems = localStorage.getStuff(formatter.format(val)) ?? [];
+    itemsStore.set(storedItems);
+});
+
+itemsStore.subscribe(val => localStorage.setStuff(formatter.format(dateFromStore), val));

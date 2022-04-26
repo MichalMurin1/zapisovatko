@@ -1,8 +1,14 @@
 <script lang="ts">
 import {itemsStore} from './../stores/ItemStore.js';
 
+
+let uid = 0;
 let text = '';
 let error = '';
+
+if($itemsStore.length > 0) {
+    $itemsStore.forEach(element => { uid = uid < element.id? element.id : uid;  });
+}
 
 const submitHandler = () => {
     if (text == '') {
@@ -12,8 +18,7 @@ const submitHandler = () => {
     error = '';
 
     itemsStore.update(currentItems => {
-        let id = currentItems[currentItems.length -1].id + 1;
-        let task = {id: id, text: text, complete: false};
+        let task = {id: ++uid, text: text, complete: false};
         return [...currentItems, task];
     });
 
