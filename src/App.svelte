@@ -20,11 +20,11 @@
 
 </script>
 
-<main class="bg-gray-800 w-screen h-screen text-gray-300 ">
+<main class="bg-zinc-900 w-screen h-screen text-zinc-300">
 	
 	<section class="px-8 w-full">
-		<div class="max-w-4xl pt-16 mx-auto">
-			<h1 class="text-center text-3xl w-full font-bold mb-20">Zapisovátor-bodovátor</h1>
+		<div class="max-w-4xl pt-8 mx-auto">
+			<h1 class="text-center text-3xl w-full font-bold mb-10">Zapisovátor-bodovátor</h1>
 			<ActDay></ActDay>
 			
 			<AddTaskForm />

@@ -28,7 +28,12 @@ const submitHandler = () => {
 </script>
 
 <form on:submit|preventDefault={submitHandler} class="pb-4 mb-4 border-b border-gray-400 flex">
-    <input type="text" class="p-3 w-full bg-gray-900 placeholder-gray-600" placeholder="Add a task..." bind:value="{text}">
-    <button class="px-6 py-2 bg-gray-500">Save</button>
+    <input 
+        type="text" 
+        class="p-3 w-full bg-zinc-800 placeholder-gray-500 focus:outline-none focus:ring-1 ring-zinc-700 rounded-l-md" 
+        placeholder="Add a task..." 
+        bind:value="{text}"
+    >
+    <button class="px-6 py-2 bg-green-900 rounded-r-md hover:bg-green-700 transition-colors">Save</button>
 </form>
 <div class="font-bold text-sm text-red-600">{error}</div>
