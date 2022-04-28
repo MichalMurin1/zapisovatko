@@ -2,6 +2,7 @@
 	import ActDay from './components/ActDay.svelte';
 	import TaskList from './components/TaskList.svelte';
 	import AddTaskForm from './components/AddTaskForm.svelte';
+	import Calendar from './components/Calendar.svelte';
 
 	/*let tasks = [
 		{
@@ -32,6 +33,8 @@
 			<div class="p-4 w-full">
 				<TaskList />
 			</div>
+
+			<Calendar />
 		</div>
 	</section>
 </main>
