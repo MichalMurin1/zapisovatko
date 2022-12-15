@@ -33,4 +33,5 @@ dateStore.subscribe(val => {
     itemsStore.set(storedItems);
 });
 
+
 itemsStore.subscribe(val => localStorage.setStuff(formatter.format(dateFromStore), val));

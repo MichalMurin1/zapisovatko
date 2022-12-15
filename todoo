@@ -1,0 +1,9 @@
+pridat aktivne / vytvorene polozky do store
+premietnut to do kalendara
+nastylovat kalendar a upratat ho
+
+
+
+overall: 
+napojit na BE pomocou api vytvoreneho v laravely
+az potom to presipsat do vue.js
