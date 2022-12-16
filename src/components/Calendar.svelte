@@ -1,5 +1,6 @@
 <script lang="ts">
-
+    import {dateStore,itemsStore} from './../stores/ItemStore.js';
+    
     /**
      * Return list of days
      * 🌍 localeName : name of local, f.e. en-GB, default es-MX
@@ -44,12 +45,31 @@
     let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     let firstDayCalendar =  new Date(setToMonday(firstDay));
 
+    let items2Date = [];
+    for (let i = 0; i < localStorage.length; i++) {
+
+        let key = localStorage.key(i);
+        let value = localStorage.getItem(key);
+        let dateOfKey = new Date(key);        
+        let keyMonth = dateOfKey.getMonth();
+        let keyDay = dateOfKey.getDate();
+
+        if (keyMonth == firstDay.getMonth()) {
+            items2Date[keyDay] = {
+                length: JSON.parse(value).length,
+                completed: JSON.parse(value).filter(item => item.complete).length
+            };
+        }
+
+    }
+    console.log(items2Date);
+
 </script>
 
 <div class="col-span-7 text-center mb-8 text-xl font-bold">
     {formatter.format(firstDay)}
 </div>
-<table class="border-collapse border border-zinc-800 text-sm text-center">
+<table class="border-collapse border border-zinc-800 text-sm text-center mx-auto">
     <tr class="">
     {#each daysOfWeek as day}
         <th class="px-6 py-4 border border-zinc-800">{day}</th>
