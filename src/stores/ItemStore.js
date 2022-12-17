@@ -27,11 +27,40 @@ const formatter = new Intl.DateTimeFormat('en',{
 let storedItems = localStorage.getStuff(formatter.format(dateFromStore)) ?? [];
 
 export let itemsStore = writable(storedItems);
+export let allItemsStore = writable(getItems2Date());
+
+let actualDateStore;
 
 dateStore.subscribe(val => {
     storedItems = localStorage.getStuff(formatter.format(val)) ?? [];
     itemsStore.set(storedItems);
+    allItemsStore.set(getItems2Date(val.getMonth()));
+    actualDateStore = val;
 });
 
 
-itemsStore.subscribe(val => localStorage.setStuff(formatter.format(dateFromStore), val));
+itemsStore.subscribe(val => {
+    localStorage.setStuff(formatter.format(dateFromStore), val);
+    allItemsStore.set(getItems2Date(actualDateStore.getMonth()));
+});
+
+function getItems2Date(actualMonth = date.getMonth()) {
+    let items2Date = [];
+    for (let i = 0; i < localStorage.length; i++) {
+
+        let key = localStorage.key(i);
+        let value = localStorage.getItem(key);
+        let dateOfKey = new Date(key);        
+        let keyMonth = dateOfKey.getMonth();
+        let keyDay = dateOfKey.getDate();
+
+        if (keyMonth == actualMonth) {
+            items2Date[keyDay] = {
+                length: JSON.parse(value).length,
+                completed: JSON.parse(value).filter(item => item.complete).length
+            };
+        }
+    }
+    return items2Date;
+}
+
