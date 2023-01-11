@@ -1,8 +1,4 @@
-pridat aktivne / vytvorene polozky do store
-premietnut to do kalendara
 upratat kalendar v htmlku 
-
-pre funkciu co mi spravila pole poctu poloziek k aktivnym vytvorit store a to pouzit v kalendari :D takto to nieje reaktivne :/
 
 overall: 
 napojit na BE pomocou api vytvoreneho v laravely

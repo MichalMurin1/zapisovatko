@@ -58,7 +58,7 @@
 <table class="border-collapse border border-zinc-800 text-sm text-center mx-auto">
     <tr class="">
     {#each daysOfWeek as day}
-        <th class="px-6 py-4 border border-zinc-800">{day}</th>
+        <th class="sm:px-6 px-3 py-2 border font-bold border-zinc-800">{day}</th>
     {/each}
     </tr>
     <!-- make calendar, loop over 41 day and iterate up firstDayCalendar -->
@@ -69,7 +69,7 @@
                 <td>{dayFormatter.format(firstDayCalendar)}</td>
             {:else}
             <td
-            class="px-6 pt-2 pb-5 border border-zinc-800 relative"
+            class="sm:px-6 px-3 pt-2 pb-5 border border-zinc-800 relative"
             >  
                 {dayFormatter.format(firstDayCalendar.setDate(firstDayCalendar.getDate() + 1))}
                 {#if allDates2Completed[firstDayCalendar.getDate()]}

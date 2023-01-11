@@ -49,7 +49,7 @@
 </script>
 
 <div class="mx-auto max-w-sm flex mb-5 items-center justify-center">
-    <div class="w-8 fill-white cursor-pointer ml-0 mr-auto" on:click="{handleBackClick}">
+    <div class="sm:w-8 w-5 fill-white cursor-pointer ml-0 mr-auto shrink-0" on:click="{handleBackClick}">
 		<TiArrowLeftThick/>
 	</div>
     <div class="text-center px-4">
@@ -57,7 +57,7 @@
         <p class="text-xl">{formatter.format($dateStore)}</p>
         <p class="text-xl">Score: {completedCount}/{taskCount} | Points: {completedCount - (taskCount - completedCount)}</p> 
     </div>
-    <div class="w-8 fill-white cursor-pointer mr-0 ml-auto" on:click="{handleForwardClick}">
+    <div class="sm:w-8 w-5 fill-white cursor-pointer mr-0 ml-auto shrink-0" on:click="{handleForwardClick}">
 		<TiArrowRightThick/>
 	</div> 
 </div>
